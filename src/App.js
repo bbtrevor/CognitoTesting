@@ -3,7 +3,7 @@ import './App.css';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 
-import { Authenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'
 
 Amplify.configure({
@@ -18,7 +18,6 @@ function App() {
 
 
   return (
-    <Authenticator>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -35,8 +34,7 @@ function App() {
           </a>
         </header>
       </div>
-    </Authenticator>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
