@@ -9,7 +9,7 @@ import {
   Greetings,
   ConfirmSignUp,
   AuthPiece
-} from 'aws-amplify-react';
+} from '@aws-amplify/ui-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 Amplify.configure({
