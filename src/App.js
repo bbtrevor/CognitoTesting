@@ -1,40 +1,73 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import { Amplify } from 'aws-amplify';
+import { Amplify, Auth, Hub } from 'aws-amplify';
 import awsExports from './aws-exports';
-
-import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css'
+import {
+  Authenticator,
+  SignUp,
+  SignIn,
+  Greetings,
+  ConfirmSignUp,
+  AuthPiece
+} from 'aws-amplify-react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 Amplify.configure({
   Auth: {
     region: awsExports.REGION, 
     userPoolId: awsExports.USER_POOL_ID, 
-    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID
+    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID, 
+    authenticationFlowType: 'CUSTOM_AUTH'
   }
 });
 
-function App() {
+class MyCustomConfirmation extends AuthPiece {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
 
+  onChange(data) {
+    Auth.sendCustomChallengeAnswer(this.props.authData, data).then((user) => {
+      console.log('user signed in!: ', user);
+      this.changeState('signedIn', user);
+    });
+  }
 
-  return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-  );
+  render() {
+    if (this.props.authState === 'customConfirmSignIn') {
+      return (
+        <div>
+          <ReCAPTCHA
+            sitekey="your-client-side-google-recaptcha-key"
+            onChange={this.onChange}
+          />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
 }
 
-export default withAuthenticator(App);
+class MyApp extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Authenticator hideDefault={true}>
+          <SignIn />
+          <SignUp />
+          <ConfirmSignUp />
+          <Greetings />
+          <MyCustomConfirmation override={'ConfirmSignIn'} />
+        </Authenticator>
+      </div>
+    );
+  }
+}
+
+function App() {
+  return <MyApp />;
+}
+
+export default App;
