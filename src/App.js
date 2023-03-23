@@ -12,6 +12,7 @@ import {
 } from '@aws-amplify/ui-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
+
 Amplify.configure({
   Auth: {
     region: awsExports.REGION, 
