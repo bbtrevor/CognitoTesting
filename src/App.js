@@ -30,6 +30,7 @@ function App() {
   const customSignInFlow = () => {
     Auth.signIn(username, password)
       .then(user => {
+        console.log(user);
         isVerified = true;
         if (user.challengeName === 'CUSTOM_CHALLENGE') {
           Auth.sendCustomChallengeAnswer(user, "Peccy")
