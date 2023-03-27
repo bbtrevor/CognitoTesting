@@ -22,6 +22,11 @@ function App() {
   const [password, setPassword] = useState("");
   var isVerified = false;
 
+  const setUser = (e) => {
+    console.log(e);
+    setUsername(e.target.value);
+  }
+
   const customSignInFlow = () => {
     console.log(username, password);
     Auth.signIn(username, password)
@@ -39,7 +44,7 @@ function App() {
   return (
     <div>
       <label>Username: 
-        <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
+        <input type='text' value={username} onChange={(e) => setUser(e)}></input>
         <input type='text' value={password} onChange={(e) => setPassword(e.target.value)}></input>
       </label>
       <button onClick={customSignInFlow}>Sign in</button>
