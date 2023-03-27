@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Amplify, Auth, SignIn } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import { MFA } from './MFA';
 import awsExports from './aws-exports';
 import React, { useState } from 'react';
