@@ -1,38 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 import { Amplify } from 'aws-amplify';
+import { MFA } from './MFA';
 import awsExports from './aws-exports';
 
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, SignIn } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'
 
 Amplify.configure({
   Auth: {
     region: awsExports.REGION, 
     userPoolId: awsExports.USER_POOL_ID, 
-    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID
+    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID, 
+    authenticationFlowType: 'CUSTOM_AUTH'
   }
 });
 
 function App() {
 
-
   return (
-    <Authenticator>
+    <Authenticator hideDefault={true}>
+      <SignIn/>
+      <MFA/>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          Hello!
         </header>
       </div>
     </Authenticator>
