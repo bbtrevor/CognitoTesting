@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import { Amplify } from 'aws-amplify';
+import { Amplify, SignIn } from 'aws-amplify';
 import { MFA } from './MFA';
 import awsExports from './aws-exports';
 
-import { Authenticator, SignIn } from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'
 
 Amplify.configure({
