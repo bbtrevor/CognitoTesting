@@ -42,7 +42,7 @@ function App() {
         <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
         <input type='text' value={password} onChange={(e) => setPassword(e.target.value)}></input>
       </label>
-      <Button onClick={customSignInFlow}>Sign in</Button>
+      <button onClick={customSignInFlow}>Sign in</button>
       {isVerified ? <h1>Verified!</h1> : <h1>Not Verified.</h1>}
     </div>
   );

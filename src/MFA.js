@@ -8,7 +8,7 @@ function MFA() {
     const [mfaField, setMfaField] = useState("");
 
     const sendChallenge = (event) => {
-        
+
     }
     
     const updateMfaField = (event) => {
@@ -21,9 +21,9 @@ function MFA() {
             <label>Enter MFA Key:
                 <input type='text' value={mfaField} onChange={(e) => updateMfaField(e)}/>
             </label>
-            <Button onClick={(e) => sendChallenge(e)}>
+            <button onClick={(e) => sendChallenge(e)}>
                 Submit
-            </Button>
+            </button>
         </div>
     )
 
