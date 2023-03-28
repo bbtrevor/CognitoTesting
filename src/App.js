@@ -32,17 +32,17 @@ function App() {
       .then(user => {
         console.log(user);
         isVerified = true;
-        // if (user.challengeName === 'CUSTOM_CHALLENGE') {
-        //   Auth.sendCustomChallengeAnswer(user, "Peccy")
-        //     .then(user => {
-        //       console.log(user);
-        //       console.log('Verified custom challenge');
-        //     })
-        //     .catch(error => console.log(error));
-        // } 
-        // else {
-        //   console.log(user);
-        // }
+        if (user.challengeName === 'CUSTOM_CHALLENGE') {
+          Auth.sendCustomChallengeAnswer(user, "Peccy")
+            .then(user => {
+              console.log(user);
+              console.log('Verified custom challenge');
+            })
+            .catch(error => console.log(error));
+        } 
+        else {
+          console.log(user);
+        }
       })
   }
 
