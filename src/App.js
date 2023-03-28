@@ -20,20 +20,16 @@ function App() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  var isVerified = false;
-
-  const setUser = (e) => {
-    console.log(e);
-    setUsername(e.target.value);
-  }
+  const [mfaCode, setMfaCode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const customSignInFlow = () => {
     Auth.signIn(username, password)
       .then(user => {
         console.log(user);
-        isVerified = true;
+        setIsVerified(true);
         if (user.challengeName === 'CUSTOM_CHALLENGE') {
-          Auth.sendCustomChallengeAnswer(user, "Peccy")
+          Auth.sendCustomChallengeAnswer(user, mfaCode)
             .then(user => {
               console.log(user);
               console.log('Verified custom challenge');
@@ -49,12 +45,21 @@ function App() {
   return (
     <div>
       <label>Username: 
-        <input type='text' value={username} onChange={(e) => setUser(e)}></input>
-        <input type='text' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+        <input type='text' placeholder='Enter your username' value={username} onChange={(e) => setUsername(e.target.value)}></input>
       </label>
+      <br/>
+      <label>Password: 
+        <input type='text' placeholder='Enter your password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+      </label>
+      <br/>
+      <label>MFA Code: 
+        <input type='text' placeholder='Enter your MFA code' value={mfaCode} onChange={(e) => setMfaCode(e.target.value)}></input>
+      </label>
+      <br/>
       <button onClick={customSignInFlow}>Sign in</button>
       {isVerified ? <h1>Verified!</h1> : <h1>Not Verified.</h1>}
     </div>
+
   );
 }
 
