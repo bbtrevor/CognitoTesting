@@ -24,6 +24,7 @@ function App() {
   const [isVerified, setIsVerified] = useState(false);
 
   const customSignInFlow = () => {
+    console.log(username + "\n" + password + "\n" + mfaCode)
     Auth.signIn(username, password)
       .then(user => {
         console.log(user);
